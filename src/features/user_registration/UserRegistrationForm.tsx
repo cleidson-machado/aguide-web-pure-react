@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { registerUser } from "./UserRegistrationService";
+import React from "react";
+import { useUserRegistration } from "./useUserRegistration";
 
 interface RegistrationFormProps {
   onSuccess: () => void;
@@ -8,32 +8,8 @@ interface RegistrationFormProps {
 const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
   onSuccess,
 }) => {
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      await registerUser({
-        name,
-        surname,
-        email,
-        passwd: password,
-      });
-      alert("Cadastro realizado com sucesso!");
-      onSuccess();
-    } catch (error: any) {
-      alert("Erro ao cadastrar usuário. Tente novamente.");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { form, isLoading, handleChange, handleSubmit } =
+    useUserRegistration(onSuccess);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -47,8 +23,9 @@ const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
         <input
           type="text"
           id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name="name"
+          value={form.name}
+          onChange={handleChange}
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
           required
         />
@@ -63,8 +40,9 @@ const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
         <input
           type="text"
           id="surname"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
+          name="surname"
+          value={form.surname}
+          onChange={handleChange}
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
         />
       </div>
@@ -78,8 +56,9 @@ const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={form.email}
+          onChange={handleChange}
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
           required
         />
@@ -94,8 +73,9 @@ const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
         <input
           type="password"
           id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={form.password}
+          onChange={handleChange}
           className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
           required
         />
