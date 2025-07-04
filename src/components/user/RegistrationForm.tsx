@@ -5,25 +5,79 @@ interface RegistrationFormProps {
 }
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log("Enviando dados:", { email, password });
 
-    // Simula uma chamada de API
-    setTimeout(() => {
+    const payload = {
+      name,
+      surname,
+      email,
+      passwd: password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar usuário");
+      }
+
       alert("Cadastro realizado com sucesso!");
+      onSuccess();
+    } catch (error) {
+      alert("Erro ao cadastrar usuário. Tente novamente.");
+      console.error(error);
+    } finally {
       setIsLoading(false);
-      onSuccess(); // Fecha o modal
-    }, 1500);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Nome
+        </label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
+          required
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="surname"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Sobrenome
+        </label>
+        <input
+          type="text"
+          id="surname"
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
+          className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
+        />
+      </div>
       <div>
         <label
           htmlFor="email"
@@ -36,7 +90,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
+          className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
           required
         />
       </div>
@@ -52,17 +106,29 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
+          className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue"
           required
         />
       </div>
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="w-full bg-accent-gold text-brand-blue font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-colors disabled:bg-gray-400"
-      >
-        {isLoading ? "Cadastrando..." : "Criar Conta"}
-      </button>
+      <div className="flex justify-start gap-3">
+        {/* Create Account Button */}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="flex-1 px-6 py-2 font-bold transition-colors rounded-lg bg-accent-gold text-brand-blue hover:bg-opacity-90 disabled:bg-gray-400"
+        >
+          {isLoading ? "Cadastrando..." : "Criar Conta"}
+        </button>
+        {/* Exit Modal Button */}
+        <button
+          type="button"
+          onClick={onSuccess}
+          className="w-[100px] px-4 py-2 font-medium text-black transition-colors bg-gray-200 rounded-lg hover:bg-gray-300"
+          disabled={isLoading}
+        >
+          SAIR
+        </button>
+      </div>
     </form>
   );
 };
