@@ -1,11 +1,13 @@
 import React from "react";
-import RegistrationForm from "./user/RegistrationForm";
+import UserRegistrationForm from "./UserRegistrationForm";
 
-interface RegistrationModalProps {
+interface UserRegistrationModalProps {
   onClose: () => void;
 }
 
-const RegistrationModal: React.FC<RegistrationModalProps> = ({ onClose }) => {
+const UserRegistrationModal: React.FC<UserRegistrationModalProps> = ({
+  onClose,
+}) => {
   return (
     // Overlay: fixo, cobre a tela toda, fundo preto com 50% de opacidade
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -22,10 +24,10 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({ onClose }) => {
           exclusivos.
         </p>
 
-        <RegistrationForm onSuccess={onClose} />
+        <UserRegistrationForm onSuccess={onClose} />
       </div>
     </div>
   );
 };
 
-export default RegistrationModal;
+export default UserRegistrationModal;

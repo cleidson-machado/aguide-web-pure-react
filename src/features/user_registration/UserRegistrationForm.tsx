@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { registerUser } from "./UserRegistrationService";
 
 interface RegistrationFormProps {
   onSuccess: () => void;
 }
 
-const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
+const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
+  onSuccess,
+}) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -15,29 +18,16 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const payload = {
-      name,
-      surname,
-      email,
-      passwd: password,
-    };
-
     try {
-      const response = await fetch("http://localhost:8080/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      await registerUser({
+        name,
+        surname,
+        email,
+        passwd: password,
       });
-
-      if (!response.ok) {
-        throw new Error("Erro ao criar usuário");
-      }
-
       alert("Cadastro realizado com sucesso!");
       onSuccess();
-    } catch (error) {
+    } catch (error: any) {
       alert("Erro ao cadastrar usuário. Tente novamente.");
       console.error(error);
     } finally {
@@ -133,4 +123,4 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
   );
 };
 
-export default RegistrationForm;
+export default UserRegistrationForm;

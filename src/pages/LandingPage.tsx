@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import RegistrationModal from "../components/RegistrationModal";
+import UserRegistrationModal from "../features/user_registration/UserRegistrationModal";
 
 const LandingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     // Usamos a fonte 'sans' (Poppins) e a cor de texto escura por padrão
-    <div className="font-sans text-neutral-dark bg-neutral-light min-h-screen flex flex-col items-center justify-center p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 font-sans text-neutral-dark bg-neutral-light">
       <main className="text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-brand-blue">
+        <h1 className="text-4xl font-bold md:text-6xl text-brand-blue">
           Seu Guia de Portugal para Brasileiros
         </h1>
-        <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
+        <p className="max-w-2xl mx-auto mt-4 text-lg md:text-xl">
           Tudo o que você precisa para explorar, morar ou visitar Portugal, na
           palma da sua mão.
         </p>
 
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row">
           <button
             onClick={() => alert("Ação para baixar o App!")}
-            className="bg-brand-green text-white font-bold py-3 px-8 rounded-lg hover:bg-opacity-90 transition-colors"
+            className="px-8 py-3 font-bold text-white transition-colors rounded-lg bg-brand-green hover:bg-opacity-90"
           >
             Baixar o App
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-transparent border-2 border-brand-blue text-brand-blue font-bold py-3 px-8 rounded-lg hover:bg-brand-blue hover:text-white transition-colors"
+            className="px-8 py-3 font-bold transition-colors bg-transparent border-2 rounded-lg border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white"
           >
             Cadastre-se para Novidades
           </button>
@@ -34,7 +34,7 @@ const LandingPage = () => {
 
       {/* O Modal só é renderizado se isModalOpen for true */}
       {isModalOpen && (
-        <RegistrationModal onClose={() => setIsModalOpen(false)} />
+        <UserRegistrationModal onClose={() => setIsModalOpen(false)} />
       )}
     </div>
   );
