@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { registerUser } from "./UserRegistrationService";
+import { saveUser } from "./UserRegisterService";
 
-export function useUserRegistration(onSuccess: () => void) {
+export function saveUserAction(onSuccess: () => void) {
   const [form, setForm] = useState({
     name: "",
     surname: "",
@@ -18,7 +18,7 @@ export function useUserRegistration(onSuccess: () => void) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await registerUser({
+      await saveUser({
         name: form.name,
         surname: form.surname,
         email: form.email,
