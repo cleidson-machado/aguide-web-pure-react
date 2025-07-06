@@ -1,11 +1,11 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import * as service from "../user_registration/UserRegisterService";
-import { saveUserAction } from "../user_registration/UserRegisterController";
+import { useRegistrationForm } from "../user_registration/useRegistrationForm.hooks";
 
 // Componente de teste para usar o hook
 function TestComponent({ onSuccess }: { onSuccess: () => void }) {
   const { form, handleChange, handleSubmit, setForm } =
-    saveUserAction(onSuccess);
+    useRegistrationForm(onSuccess);
 
   return (
     <form onSubmit={handleSubmit} data-testid="form">
@@ -40,7 +40,7 @@ function TestComponent({ onSuccess }: { onSuccess: () => void }) {
 
 jest.mock("../user_registration/UserRegisterService");
 
-describe("TESTING THE saveUserAction METHOD:", () => {
+describe("TESTING THE useRegistrationForm METHOD:", () => {
   it("atualiza o form ao digitar", () => {
     const onSuccess = jest.fn();
     const { getByTestId } = render(<TestComponent onSuccess={onSuccess} />);

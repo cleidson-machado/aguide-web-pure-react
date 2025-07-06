@@ -1,5 +1,5 @@
 import React from "react";
-import { saveUserAction } from "./UserRegisterController";
+import { useRegistrationForm } from "./useRegistrationForm.hooks";
 
 interface RegistrationFormProps {
   onSuccess: () => void;
@@ -9,7 +9,7 @@ const UserRegistrationForm: React.FC<RegistrationFormProps> = ({
   onSuccess,
 }) => {
   const { form, isLoading, handleChange, handleSubmit } =
-    saveUserAction(onSuccess);
+    useRegistrationForm(onSuccess);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
