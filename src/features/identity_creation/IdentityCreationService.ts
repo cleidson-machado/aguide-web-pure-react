@@ -1,4 +1,4 @@
-import { UserRegisterPayload } from "./UserRegisterPayload";
+import { UserRegisterPayload } from "./IdentityCreationPayload";
 
 export async function saveUser(payload: UserRegisterPayload): Promise<void> {
   const baseUrl = process.env.REACT_APP_API_BASE_URL; // or VITE_API_BASE_URL for Vite

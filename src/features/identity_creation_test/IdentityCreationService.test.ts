@@ -1,7 +1,7 @@
+import { saveUser } from "../identity_creation/IdentityCreationService";
+
 // Silencia alert durante os testes
 window.alert = jest.fn();
-
-import { saveUser } from "../user_registration/UserRegisterService";
 
 global.fetch = jest.fn();
 

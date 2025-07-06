@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { saveUser } from "./UserRegisterService";
+import { saveUser } from "./IdentityCreationService";
 
 export function useRegistrationForm(onSuccess: () => void) {
   const [form, setForm] = useState({

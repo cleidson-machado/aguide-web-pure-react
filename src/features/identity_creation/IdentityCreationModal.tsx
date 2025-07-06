@@ -1,5 +1,5 @@
 import React from "react";
-import UserRegistrationForm from "./UserRegistrationForm";
+import UserRegistrationForm from "./IdentityCreationForm";
 
 interface UserRegistrationModalProps {
   onClose: () => void;

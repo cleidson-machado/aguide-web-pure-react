@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserRegistrationModal from "../features/user_registration/UserRegistrationModal";
+import UserRegistrationModal from "../features/identity_creation/IdentityCreationModal";
 
 const LandingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

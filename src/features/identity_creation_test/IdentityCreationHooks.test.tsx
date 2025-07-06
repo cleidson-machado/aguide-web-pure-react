@@ -1,6 +1,6 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import * as service from "../user_registration/UserRegisterService";
-import { useRegistrationForm } from "../user_registration/useRegistrationForm.hooks";
+import * as service from "../identity_creation/IdentityCreationService";
+import { useRegistrationForm } from "../identity_creation/IdentityCreation.hooks";
 
 // Componente de teste para usar o hook
 function TestComponent({ onSuccess }: { onSuccess: () => void }) {
@@ -38,7 +38,7 @@ function TestComponent({ onSuccess }: { onSuccess: () => void }) {
   );
 }
 
-jest.mock("../user_registration/UserRegisterService");
+jest.mock("../identity_creation/IdentityCreationService");
 
 describe("TESTING THE useRegistrationForm METHOD:", () => {
   it("atualiza o form ao digitar", () => {

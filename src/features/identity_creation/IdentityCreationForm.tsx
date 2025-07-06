@@ -1,5 +1,5 @@
 import React from "react";
-import { useRegistrationForm } from "./useRegistrationForm.hooks";
+import { useRegistrationForm } from "./IdentityCreation.hooks";
 
 interface RegistrationFormProps {
   onSuccess: () => void;
