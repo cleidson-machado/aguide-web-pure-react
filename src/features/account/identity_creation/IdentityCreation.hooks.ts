@@ -17,6 +17,7 @@ export function useRegistrationForm(onSuccess: () => void) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log("Submitting form:", form.password);
     try {
       await saveUser({
         name: form.name,
